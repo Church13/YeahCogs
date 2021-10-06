@@ -1,0 +1,11 @@
+{
+    "author" : ["Church (Church#0013)"],
+    "install_msg" : "Thanks for installing buzz. Use `[p]buzz` for maximum content-aware memeage.",
+    "name" : "Buzz",
+    "short" : "Buzz images into GIFs with content aware scaling.",
+    "requirements" : ["wand"],
+    "description" : "Buzz images into GIFs with content aware scaling.",
+    "tags" : ["fun", "meme", "content aware"],
+    "min_python_version": [3, 8, 0],
+    "end_user_data_statement": "This cog does not store user data."
+}
