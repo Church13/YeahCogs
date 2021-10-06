@@ -1,11 +1,8 @@
 import discord
 import aiohttp
 from redbot.core import commands
-from redbot.core import Config
-from redbot.core import checks
-from wand.image import Image, ImageProperty
+from wand.image import Image
 from io import BytesIO
-import functools
 import asyncio
 import urllib
 
@@ -58,7 +55,7 @@ class Buzz(commands.Cog):
                 try:
                     async with session.get(link) as response:
                         resp = await response.read()
-                        img = Image.read(BytesIO(response))
+                        img = Image.read(BytesIO(resp))
                 except (OSError, aiohttp.ClientError):
                     raise ImageFindError(
                         "An image could not be found. Make sure you provide a direct link."
@@ -77,6 +74,7 @@ class Buzz(commands.Cog):
             img = Image.read(temp_orig)
         return img
 
+    @commands.command()
     @commands.bot_has_permissions(attach_files=True)
     async def buzz(self, ctx, link: str = None):
         """
