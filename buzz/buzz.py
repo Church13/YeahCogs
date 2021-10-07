@@ -26,9 +26,13 @@ class Buzz(commands.Cog):
 
     @staticmethod
     def _buzz(img):
+        temp = BytesIO()
+        temp.name = "buzzed.jpeg"
         with Image(file=img) as image:
-            base = image.transform(resize="x256")
-        return base
+            image.transform(resize="x256")
+            image.save(temp)
+        temp.seek(0)
+        return temp
 
     async def _get_image(self, ctx, link):
         """Helper function to find an image."""
