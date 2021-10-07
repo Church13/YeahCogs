@@ -2,6 +2,7 @@ import discord
 import aiohttp
 from redbot.core import commands
 from wand.image import Image
+from io import BytesIO
 import asyncio
 import urllib
 
@@ -23,7 +24,7 @@ class Buzz(commands.Cog):
 
     @staticmethod
     def _buzz(img):
-        with Image(img) as image:
+        with Image(file=img) as image:
             base = image.transform(resize="x256")
         return base
 
@@ -54,7 +55,7 @@ class Buzz(commands.Cog):
                 try:
                     async with session.get(link) as response:
                         resp = await response.read()
-                        img = Image.read(str(resp))
+                        img = BytesIO(resp)
                 except (OSError, aiohttp.ClientError):
                     raise ImageFindError(
                         "An image could not be found. Make sure you provide a direct link."
@@ -67,9 +68,10 @@ class Buzz(commands.Cog):
                 )
             if ctx.message.attachments[0].size > filesize_limit:
                 raise ImageFindError("That image is too large.")
-            temp_orig = None
+            temp_orig = BytesIO()
             await ctx.message.attachments[0].save(temp_orig)
-            img = Image.read(str(temp_orig))
+            temp_orig.seek(0)
+            img = temp_orig
         return img
 
     @commands.command()
