@@ -2,6 +2,7 @@ import functools
 import discord
 import aiohttp
 from redbot.core import commands
+from wand.api import IM_HDRI
 from wand.image import Image
 from io import BytesIO
 import functools
@@ -28,14 +29,22 @@ class Buzz(commands.Cog):
     def _buzz(img):
         temp = BytesIO()
         temp.name = "buzzed.jpeg"
-        frames = []
-        with Image(file=img) as image:
-            image.transform(resize="x256")
-            # for i in range(85):
-            #     with image.clone() as liquid:
-            #         liquid.liquid_rescale()
-            image.liquid_rescale(256, 256)
-            image.save(temp)
+        with Image() as gif:
+            with Image(file=img) as image:
+                image.transform(resize="x256")
+                for count in range(85):
+                    percentage = (100 - count) / 100
+                    h = image.height * percentage
+                    w = image.width * percentage
+                    with image.clone() as liquid:
+                        liquid.liquid_rescale(height=h, width=w)
+                        liquid.resize(height=image.height, width=image.width)
+                        gif.sequence.append(liquid)
+            for sel in range(85):
+                with gif.sequence[sel] as frame:
+                    frame.delay = 6
+            gif.type = "optimize"
+            gif.save(temp)
         temp.seek(0)
         return temp
 
