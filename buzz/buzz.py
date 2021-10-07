@@ -39,10 +39,11 @@ class Buzz(commands.Cog):
                         liquid.liquid_rescale(height=h, width=w)
                         liquid.resize(height=image.height, width=image.width)
                         gif.sequence.append(liquid)
-            for sel in range(85):
-                with gif.sequence[sel] as frame:
-                    frame.delay = 6
+            for frame in gif.sequence:
+                frame.delay = 6
+            gif.loop = 0
             gif.type = "optimize"
+            gif.format = "gif"
             gif.save(temp)
         temp.seek(0)
         return temp
