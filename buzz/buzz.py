@@ -34,7 +34,7 @@ class Buzz(commands.Cog):
             # for i in range(85):
             #     with image.clone() as liquid:
             #         liquid.liquid_rescale()
-            image.liquid_rescale(256)
+            image.liquid_rescale(256, 256)
             image.save(temp)
         temp.seek(0)
         return temp
