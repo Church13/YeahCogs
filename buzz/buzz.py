@@ -28,8 +28,13 @@ class Buzz(commands.Cog):
     def _buzz(img):
         temp = BytesIO()
         temp.name = "buzzed.jpeg"
+        frames = []
         with Image(file=img) as image:
             image.transform(resize="x256")
+            # for i in range(85):
+            #     with image.clone() as liquid:
+            #         liquid.liquid_rescale()
+            image.liquid_rescale(128, 128)
             image.save(temp)
         temp.seek(0)
         return temp
