@@ -33,8 +33,8 @@ class Buzz(commands.Cog):
                 image.transform(resize="x256")
                 for count in range(85):
                     percentage = (100 - count) / 100
-                    h = image.height * percentage
-                    w = image.width * percentage
+                    h = int(image.height * percentage)
+                    w = int(image.width * percentage)
                     with image.clone() as liquid:
                         liquid.liquid_rescale(height=h, width=w)
                         liquid.resize(height=image.height, width=image.width)
