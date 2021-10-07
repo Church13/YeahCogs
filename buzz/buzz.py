@@ -54,7 +54,7 @@ class Buzz(commands.Cog):
                 try:
                     async with session.get(link) as response:
                         resp = await response.read()
-                        img = Image.read(resp)
+                        img = Image.read(str(resp))
                 except (OSError, aiohttp.ClientError):
                     raise ImageFindError(
                         "An image could not be found. Make sure you provide a direct link."
@@ -69,7 +69,7 @@ class Buzz(commands.Cog):
                 raise ImageFindError("That image is too large.")
             temp_orig = None
             await ctx.message.attachments[0].save(temp_orig)
-            img = Image.read(temp_orig)
+            img = Image.read(str(temp_orig))
         return img
 
     @commands.command()
