@@ -2,7 +2,6 @@ import functools
 import discord
 import aiohttp
 from redbot.core import commands
-from wand.api import IM_HDRI
 from wand.image import Image
 from io import BytesIO
 import functools
