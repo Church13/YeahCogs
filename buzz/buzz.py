@@ -100,7 +100,7 @@ class Buzz(commands.Cog):
             except asyncio.TimeoutError:
                 return await ctx.send("The image took too long to process.")
             try:
-                await ctx.send(file=discord.file(image))
+                await ctx.send(file=discord.File(image))
             except discord.errors.HTTPException:
                 return await ctx.send("That image is too large.")
 
