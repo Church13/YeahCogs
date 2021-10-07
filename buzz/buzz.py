@@ -27,7 +27,7 @@ class Buzz(commands.Cog):
     @staticmethod
     def _buzz(img):
         temp = BytesIO()
-        temp.name = "buzzed.jpeg"
+        temp.name = "buzzed.gif"
         with Image() as gif:
             with Image(file=img) as image:
                 image.transform(resize="x256")
