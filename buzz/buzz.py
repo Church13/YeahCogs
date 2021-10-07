@@ -1,8 +1,10 @@
+import functools
 import discord
 import aiohttp
 from redbot.core import commands
 from wand.image import Image
 from io import BytesIO
+import functools
 import asyncio
 import urllib
 
@@ -87,7 +89,7 @@ class Buzz(commands.Cog):
                 img = await self._get_image(ctx, link)
             except ImageFindError as error:
                 return await ctx.send(error)
-            task = self.bot.loop.run_in_executor(self._buzz, img)
+            task = functools.partial(self._buzz, img)
             task = self.bot.loop.run_in_executor(None, task)
             try:
                 image = await asyncio.wait_for(task, timeout=60)
