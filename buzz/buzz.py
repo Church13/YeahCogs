@@ -8,7 +8,7 @@ import functools
 import asyncio
 import urllib
 
-MAX_SIZE = 8 * 1000 * 1000
+MAX_SIZE = 50 * 1000 * 1000
 
 
 class ImageFindError(Exception):
